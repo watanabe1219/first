@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,8 +27,9 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/product", method = RequestMethod.POST)
-	public String product (Model model , @ModelAttribute ProductForm form) {
-		if (form.getName() == null || form.getPrice() == null) {
+	public String product (Model model ,@Validated @ModelAttribute ProductForm form,BindingResult result) {
+		
+		if (result.hasErrors()) {
 			model.addAttribute("message","è§ïièÓïÒÇ™Ç©ÇÁÇ≈Ç∑");
 		}else{
 			model.addAttribute("message","è§ïièÓïÒÇ™ì¸óÕÇ≥ÇÍÇ‹ÇµÇΩ");
